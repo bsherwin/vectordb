@@ -2,8 +2,8 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "accounts_mhoai_name": {
-            "defaultValue": "mhoai",
+        "open_ai_accountname": {
+            "defaultValue": "",
             "type": "String"
         }
     },
@@ -12,14 +12,14 @@
         {
             "type": "Microsoft.CognitiveServices/accounts",
             "apiVersion": "2023-05-01",
-            "name": "[parameters('accounts_mhoai_name')]",
+            "name": "[parameters('open_ai_accountname')]",
             "location": "eastus",
             "sku": {
                 "name": "S0"
             },
             "kind": "OpenAI",
             "properties": {
-                "customSubDomainName": "[parameters('accounts_mhoai_name')]",
+                "customSubDomainName": "[parameters('open_ai_accountname')]",
                 "networkAcls": {
                     "defaultAction": "Allow",
                     "virtualNetworkRules": [],
@@ -33,7 +33,7 @@
             "apiVersion": "2023-05-01",
             "name": "[concat(parameters('accounts_mhoai_name'), '/embedding-ada')]",
             "dependsOn": [
-                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('accounts_mhoai_name'))]"
+                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('open_ai_accountname'))]"
             ],
             "sku": {
                 "name": "Standard",
